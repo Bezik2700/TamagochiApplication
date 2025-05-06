@@ -18,7 +18,7 @@ fun UserMoneyCard(modifier: Modifier = Modifier){
         horizontalAlignment = Alignment.Start
     ) {
         Card (
-            modifier = modifier.size(width = 144.dp, height = 80.dp),
+            modifier = modifier.size(width = 144.dp, height = 96.dp),
         ) {
             Column {
                 Text("moneyValue: 0" , modifier.padding(4.dp))
