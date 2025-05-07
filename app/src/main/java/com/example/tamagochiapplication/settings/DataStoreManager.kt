@@ -21,6 +21,11 @@ class DataStoreManager(private val context: Context) {
             pref[intPreferencesKey("userHealthValue")] = settingData.userHealthValue
             pref[intPreferencesKey("userHappinessValue")] = settingData.userHappinessValue
             pref[booleanPreferencesKey("appMenuState")] = settingData.appMenuState
+            pref[booleanPreferencesKey("shoppingCardStatus")] = settingData.shoppingCardStatus
+            pref[booleanPreferencesKey("settingCardStatus")] = settingData.settingCardStatus
+            pref[intPreferencesKey("silverPoint")] = settingData.silverPoint
+            pref[intPreferencesKey("goldPoint")] = settingData.goldPoint
+            pref[intPreferencesKey("keyPoint")] = settingData.keyPoint
         }
     }
 
@@ -30,7 +35,12 @@ class DataStoreManager(private val context: Context) {
             pref[intPreferencesKey("userEatValue")] ?: 0,
             pref[intPreferencesKey("userHealthValue")] ?: 0,
             pref[intPreferencesKey("userHappinessValue")] ?: 0,
-            pref[booleanPreferencesKey("appMenuState")] == true
+            pref[booleanPreferencesKey("appMenuState")] == true,
+            pref[booleanPreferencesKey("shoppingCardStatus")] == false,
+            pref[booleanPreferencesKey("settingCardStatus")] == false,
+            pref[intPreferencesKey("silverPoint")] ?: 0,
+            pref[intPreferencesKey("goldPoint")] ?: 0,
+            pref[intPreferencesKey("keyPoint")] ?: 0
         )
     }
 }
@@ -40,5 +50,10 @@ data class SettingData(
     val userEatValue: Int,
     val userHealthValue: Int,
     val userHappinessValue: Int,
-    val appMenuState: Boolean
+    val appMenuState: Boolean,
+    val shoppingCardStatus: Boolean,
+    val settingCardStatus: Boolean,
+    val silverPoint: Int,
+    val goldPoint: Int,
+    val keyPoint: Int
 )

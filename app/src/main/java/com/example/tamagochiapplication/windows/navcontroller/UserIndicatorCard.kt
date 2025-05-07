@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -34,45 +35,46 @@ fun UserIndicatorCard(
 ){
 
     val userProgressStep by remember { mutableIntStateOf(100) }
-    var indicatorCardStatus by remember { mutableStateOf(true) }
+    var indicatorCardStatus by remember { mutableStateOf(false) }
 
-    if (indicatorCardStatus){
-        Card (
-            modifier = modifier
-                .size(width = 144.dp, height = 96.dp)
-                .clickable(onClick = {indicatorCardStatus = !indicatorCardStatus})
+    Card (
+        modifier = modifier
+            .size(width = 144.dp, height = 96.dp)
+            .clickable(onClick = { indicatorCardStatus = !indicatorCardStatus })
+    ) {
+        Column (
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(4.dp)
         ) {
-            Column (
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.Start,
-                modifier = Modifier.fillMaxSize().padding(4.dp)
-            ) {
-                Text("userEatStatus", fontSize = 10.sp)
-                LinearProgressIndicator(
-                    progress = { userEatValue.value.toFloat() / userProgressStep },
-                    trackColor = Color.White,
-                    color = Color.Red
-                )
-                Text("userEatStatus", fontSize = 10.sp)
-                LinearProgressIndicator(
-                    progress = { userHappinessValue.value.toFloat() / userProgressStep },
-                    trackColor = Color.White,
-                    color = Color.Green
-                )
-                Text("userEatStatus", fontSize = 10.sp)
-                LinearProgressIndicator(
-                    progress = { userHealthValue.value.toFloat() / userProgressStep },
-                    trackColor = Color.White,
-                    color = Color.Blue
-                )
-            }
+            Text("userEatStatus", fontSize = 10.sp)
+            LinearProgressIndicator(
+                progress = { userEatValue.value.toFloat() / userProgressStep },
+                trackColor = Color.White,
+                color = Color.Red
+            )
+            Text("userEatStatus", fontSize = 10.sp)
+            LinearProgressIndicator(
+                progress = { userHappinessValue.value.toFloat() / userProgressStep },
+                trackColor = Color.White,
+                color = Color.Green
+            )
+            Text("userEatStatus", fontSize = 10.sp)
+            LinearProgressIndicator(
+                progress = { userHealthValue.value.toFloat() / userProgressStep },
+                trackColor = Color.White,
+                color = Color.Blue
+            )
         }
-    } else {
+    }
+    if (indicatorCardStatus) {
         Dialog(onDismissRequest = {indicatorCardStatus}) {
             Card (
                 modifier = modifier
                     .fillMaxWidth()
-                    .clickable(onClick = {indicatorCardStatus = !indicatorCardStatus})
+                    .clickable(onClick = { indicatorCardStatus = !indicatorCardStatus })
             ) {
                 Column (
                     verticalArrangement = Arrangement.Center,
@@ -86,22 +88,37 @@ fun UserIndicatorCard(
                         progress = { userEatValue.value.toFloat() / userProgressStep },
                         trackColor = Color.White,
                         color = Color.Red,
-                        modifier = modifier.fillMaxWidth().padding(8.dp)
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
                     )
                     Text("userEatStatus", fontSize = 24.sp)
                     LinearProgressIndicator(
                         progress = { userHappinessValue.value.toFloat() / userProgressStep },
                         trackColor = Color.White,
                         color = Color.Green,
-                        modifier = modifier.fillMaxWidth().padding(8.dp)
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
                     )
                     Text("userEatStatus", fontSize = 24.sp)
                     LinearProgressIndicator(
                         progress = { userHealthValue.value.toFloat() / userProgressStep },
                         trackColor = Color.White,
                         color = Color.Blue,
-                        modifier = modifier.fillMaxWidth().padding(8.dp)
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
                     )
+                }
+                Column (
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Button(onClick = { indicatorCardStatus = !indicatorCardStatus }) {
+                        Text("apply")
+                    }
                 }
             }
         }

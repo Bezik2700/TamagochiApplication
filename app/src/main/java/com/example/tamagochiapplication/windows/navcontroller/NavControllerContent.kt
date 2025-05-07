@@ -17,20 +17,31 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tamagochiapplication.R
+import com.example.tamagochiapplication.windows.menu.SettingScreen
 
 @Composable
 fun NavControllerContent(
-    userEatValue: MutableState<Int>,
-    userHealthValue: MutableState<Int>,
-    userHappinessValue: MutableState<Int>,
-    appMenuState: MutableState<Boolean>,
+    navController: NavController,
+    userEatValue: MutableState <Int>,
+    userHealthValue: MutableState <Int>,
+    userHappinessValue: MutableState <Int>,
+    appMenuState: MutableState <Boolean>,
+    settingCardStatus: MutableState <Boolean>,
+    shoppingCardStatus: MutableState <Boolean>,
+    silverPoint: MutableState <Int>,
+    goldPoint: MutableState <Int>,
+    keyPoint: MutableState <Int>,
     modifier: Modifier = Modifier
 ){
+    val scope = rememberCoroutineScope()
+
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,7 +60,11 @@ fun NavControllerContent(
             .fillMaxHeight(0.2f)
             .padding(top = 80.dp, start = 16.dp, end = 16.dp)
     ) {
-        UserMoneyCard()
+        UserMoneyCard(
+            silverPoint = silverPoint,
+            goldPoint = goldPoint,
+            keyPoint = keyPoint
+        )
         Text("userNameText", modifier.align(Alignment.Bottom))
         UserIndicatorCard(
             userEatValue = userEatValue,
@@ -64,7 +79,7 @@ fun NavControllerContent(
             modifier = Modifier.fillMaxSize().padding(bottom = 144.dp, end = 16.dp)
         ) {
             IconButton(
-                onClick = {}
+                onClick = { settingCardStatus.value = !settingCardStatus.value }
             ) {
                 Icon(
                     Icons.Rounded.Settings,
@@ -72,18 +87,10 @@ fun NavControllerContent(
                 )
             }
             IconButton(
-                onClick = {}
+                onClick = { shoppingCardStatus.value = !shoppingCardStatus.value }
             ) {
                 Icon(
                     Icons.Rounded.ShoppingCart,
-                    contentDescription = null
-                )
-            }
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    Icons.Rounded.Person,
                     contentDescription = null
                 )
             }
